@@ -7,7 +7,7 @@ Version:	0.11.1
 Release:	1
 Source0:	https://github.com/google/highway/archive/%{version}/%{name}-%{version}.tar.gz
 BuildRequires:	cmake ninja
-BuildRequires:	cmake(GTest)
+BuildRequires:	pkgconfig(gtest)
 License:	Apache 2.0
 
 %description
