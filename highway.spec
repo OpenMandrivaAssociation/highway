@@ -1,39 +1,66 @@
-%define debug_package %{nil}
-%define devname %mklibname -d -s hwy
+%global upstream google
+%global gitbase  https://github.com
 
-Summary:	C++ library for SIMD
-Name:		highway
-Version:	0.11.1
-Release:	1
-Source0:	https://github.com/google/highway/archive/%{version}/%{name}-%{version}.tar.gz
-BuildRequires:	cmake ninja
-BuildRequires:	pkgconfig(gtest)
-License:	Apache 2.0
+%define major 1
+%define shortname hwy
+%define libname %mklibname %{shortname} %{major}
+%define devname %mklibname %{shortname} -d
+
+Summary: Performance-portable, length-agnostic SIMD with runtime dispatch
+Name:    highway
+Version: 1.0.0
+Release: %mkrel 1
+License: Apache 2.0
+Group:   System/Libraries
+URL:     %{gitbase}/%{upstream}/%{name}
+Source0: %{gitbase}/%{upstream}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+
+BuildRequires: cmake
+BuildRequires: ninja
+BuildRequires: devel(libatomic)
+BuildRequires: pkgconfig(gtest)
 
 %description
-C++ library for SIMD
+Highway is a C++ library that provides portable SIMD/vector intrinsics.
+
+%package -n %{libname}
+Summary:  %{summary}
+Group:    %{group}
+Provides: %{name} = %{version}-%{release}
+
+%description -n %{libname}
+This package contains the %{name} runtime libraries.
 
 %package -n %{devname}
-Summary:	Development files for the Highway SIMD library
+Summary:  %{summary}
+Group:    %{group}
+Requires: %{libname} = %{version}-%{release}
 
 %description -n %{devname}
-Development files for the Highway SIMD library
+This package contains the %{name} development headers and libraries.
 
 %prep
-%autosetup -p1
-%cmake \
-	-DHWY_SYSTEM_GTEST:BOOL=ON \
-	-G Ninja
+%autosetup
+%cmake -G Ninja \
+       -DHWY_SYSTEM_GTEST=ON
 
 %build
 export LD_LIBRARY_PATH=`pwd`/build/lib:$LD_LIBRARY_PATH
 %ninja_build -C build
 
+%check
+export LD_LIBRARY_PATH=`pwd`/build/lib:$LD_LIBRARY_PATH
+%ninja_test -C build
+
 %install
 %ninja_install -C build
 
+%files -n %{libname}
+%{_libdir}/lib%{shortname}*.so.%{major}*
+
 %files -n %{devname}
-%{_includedir}/hwy
-%{_includedir}/contrib
-%{_libdir}/libhwy.a
-%{_libdir}/pkgconfig/*.pc
+%doc README.md g3doc/* %{shortname}/examples
+%license LICENSE
+%{_libdir}/lib%{shortname}*.so
+%{_includedir}/%{shortname}
+%{_libdir}/pkgconfig/lib%{shortname}*
