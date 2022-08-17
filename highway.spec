@@ -3,13 +3,13 @@
 
 %define major 1
 %define shortname hwy
-%define libname %mklibname %{shortname} %{major}
+%define libname %mklibname %{shortname}
 %define devname %mklibname %{shortname} -d
 
 Summary: Performance-portable, length-agnostic SIMD with runtime dispatch
 Name:    highway
 Version: 1.0.0
-Release: %mkrel 1
+Release: 1
 License: Apache 2.0
 Group:   System/Libraries
 URL:     %{gitbase}/%{upstream}/%{name}
@@ -17,7 +17,7 @@ Source0: %{gitbase}/%{upstream}/%{name}/archive/%{version}/%{name}-%{version}.ta
 
 BuildRequires: cmake
 BuildRequires: ninja
-BuildRequires: devel(libatomic)
+BuildRequires: atomic-devel
 BuildRequires: pkgconfig(gtest)
 
 %description
