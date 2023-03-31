@@ -9,7 +9,7 @@
 Summary: Performance-portable, length-agnostic SIMD with runtime dispatch
 Name:    highway
 Version: 1.0.1
-Release: 1
+Release: 2
 License: Apache 2.0
 Group:   System/Libraries
 URL:     %{gitbase}/%{upstream}/%{name}
