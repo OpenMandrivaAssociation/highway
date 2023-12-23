@@ -61,3 +61,4 @@ export LD_LIBRARY_PATH=`pwd`/build/lib:$LD_LIBRARY_PATH
 %{_libdir}/lib%{shortname}*.so
 %{_includedir}/%{shortname}
 %{_libdir}/pkgconfig/lib%{shortname}*
+%{_libdir}/cmake/hwy
