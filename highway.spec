@@ -1,6 +1,3 @@
-%global upstream google
-%global gitbase  https://github.com
-
 %define major 1
 %define shortname hwy
 %define libname %mklibname %{shortname}
@@ -8,12 +5,12 @@
 
 Summary: Performance-portable, length-agnostic SIMD with runtime dispatch
 Name:    highway
-Version: 1.0.1
-Release: 2
+Version: 1.0.7
+Release: 1
 License: Apache 2.0
 Group:   System/Libraries
-URL:     %{gitbase}/%{upstream}/%{name}
-Source0: %{gitbase}/%{upstream}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+URL:     https://github.com/google/highway
+Source0: https://github.com/google/highway/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires: cmake
 BuildRequires: ninja
